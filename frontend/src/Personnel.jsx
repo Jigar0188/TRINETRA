@@ -43,7 +43,7 @@ function Personnel({ onPersonnelSelect }) {
   if (loading) {
     return (
       <div className="personnel-page">
-        <div className="loading-state">Loading personnel directory...</div>
+        <div className="loading-state">Loading live personnel data...</div>
       </div>
     );
   }
@@ -58,14 +58,12 @@ function Personnel({ onPersonnelSelect }) {
 
   return (
     <div className="personnel-page">
-      {/* ================= HEADER ================= */}
-
       <div className="personnel-header">
         <div>
           <p className="eyebrow">WELFARE MANAGEMENT</p>
           <h1>Personnel Directory</h1>
           <p>
-            Current welfare status across the monitored personnel population.
+            Current welfare status from the live TRINETRA prediction pipeline.
           </p>
         </div>
 
@@ -74,13 +72,11 @@ function Personnel({ onPersonnelSelect }) {
         </div>
       </div>
 
-      {/* ================= SUMMARY ================= */}
-
       <div className="personnel-summary">
         <div className="personnel-summary-card">
           <span>TOTAL PERSONNEL</span>
           <strong>{personnel.length}</strong>
-          <small>Current personnel snapshot</small>
+          <small>Live personnel snapshot</small>
         </div>
 
         <div className="personnel-summary-card high">
@@ -113,8 +109,6 @@ function Personnel({ onPersonnelSelect }) {
           <small>Within routine monitoring range</small>
         </div>
       </div>
-
-      {/* ================= DIRECTORY ================= */}
 
       <div className="personnel-panel">
         <div className="personnel-toolbar">
@@ -159,6 +153,7 @@ function Personnel({ onPersonnelSelect }) {
                 <th>Overall</th>
                 <th>Trajectory</th>
                 <th>Priority</th>
+                <th>Persistent</th>
               </tr>
             </thead>
 
@@ -175,14 +170,14 @@ function Personnel({ onPersonnelSelect }) {
                   </td>
 
                   <td>{person.role_category}</td>
-
                   <td>{person.posting_type}</td>
-
                   <td>{person.service_tenure_months} mo</td>
 
                   <td>
                     <span
-                      className={`risk-badge ${person.stress_risk.toLowerCase()}`}
+                      className={`risk-badge ${String(
+                        person.stress_risk,
+                      ).toLowerCase()}`}
                     >
                       {person.stress_risk}
                     </span>
@@ -190,7 +185,9 @@ function Personnel({ onPersonnelSelect }) {
 
                   <td>
                     <span
-                      className={`risk-badge ${person.fatigue_risk.toLowerCase()}`}
+                      className={`risk-badge ${String(
+                        person.fatigue_risk,
+                      ).toLowerCase()}`}
                     >
                       {person.fatigue_risk}
                     </span>
@@ -198,7 +195,9 @@ function Personnel({ onPersonnelSelect }) {
 
                   <td>
                     <span
-                      className={`risk-badge ${person.burnout_risk.toLowerCase()}`}
+                      className={`risk-badge ${String(
+                        person.burnout_risk,
+                      ).toLowerCase()}`}
                     >
                       {person.burnout_risk}
                     </span>
@@ -206,7 +205,9 @@ function Personnel({ onPersonnelSelect }) {
 
                   <td>
                     <span
-                      className={`risk-badge ${person.overall_risk.toLowerCase()}`}
+                      className={`risk-badge ${String(
+                        person.overall_risk,
+                      ).toLowerCase()}`}
                     >
                       {person.overall_risk}
                     </span>
@@ -216,11 +217,15 @@ function Personnel({ onPersonnelSelect }) {
 
                   <td>
                     <span
-                      className={`priority-badge ${person.welfare_priority.toLowerCase()}`}
+                      className={`priority-badge ${String(
+                        person.welfare_priority,
+                      ).toLowerCase()}`}
                     >
-                      {person.welfare_priority.replace("_", " ")}
+                      {String(person.welfare_priority).replace("_", " ")}
                     </span>
                   </td>
+
+                  <td>{person.persistent_high ? "Yes" : "No"}</td>
                 </tr>
               ))}
             </tbody>
@@ -233,8 +238,6 @@ function Personnel({ onPersonnelSelect }) {
           )}
         </div>
       </div>
-
-      {/* ================= PRIVACY ================= */}
 
       <div className="privacy-note">
         <strong>Authorized welfare access</strong>

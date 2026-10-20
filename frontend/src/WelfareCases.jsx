@@ -70,7 +70,7 @@ function WelfareCases({ cases, onBack, onCaseSelect }) {
 
             <tbody>
               {cases.slice(0, 50).map((caseItem) => (
-                <tr key={caseItem.case_id}>
+                <tr key={caseItem.personnel_id}>
                   <td>
                     <button
                       className="personnel-link"

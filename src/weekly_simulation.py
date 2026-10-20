@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.baseline import generate_personnel_baselines
+from baseline import generate_personnel_baselines
 
 
 # ============================================================
